@@ -1,6 +1,6 @@
 # bio-unichem
 
-[![Build Status](https://secure.travis-ci.org/nakao/bioruby-unichem.png)](http://travis-ci.org/nakao/bioruby-unichem)
+[![Build Status](https://secure.travis-ci.org/nakao/bio-unichem.png)](http://travis-ci.org/nakao/bio-unichem)
 
 BioRuby plugin for [UniChem REST Webservice](https://www.ebi.ac.uk/unichem/info/webservices).
 
@@ -26,7 +26,7 @@ the source tree.
 Information on the source tree, documentation, examples, issues and
 how to contribute, see
 
-  http://github.com/nakao/bioruby-unichem
+  http://github.com/nakao/bio-unichem
 
 The BioRuby community is on IRC server: irc.freenode.org, channel: #bioruby.
 
