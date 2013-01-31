@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/nakao/bioruby-unichem.png)](http://travis-ci.org/nakao/bioruby-unichem)
 
-Full description goes here
+BioRuby plugin for [UniChem REST Webservice](https://www.ebi.ac.uk/unichem/info/webservices).
 
 Note: this software is under active development!
 
