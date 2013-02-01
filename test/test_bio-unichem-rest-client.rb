@@ -1,99 +1,138 @@
 require 'helper'
 require 'bio-unichem/unichem.rb'
 
-class TestBioUniChemURI < Test::Unit::TestCase
+class TestBioUniChemRESTClient < Test::Unit::TestCase
   def setup
-    @obj = BioUniChem::REST::UniChem_URI
+    @obj = BioUniChem::REST.new
   end
   
   def test_src_compound_id_2
-    assert_equal(
-      @obj.src_compound_id("CHEMBL12", "1"), 
-      "http://www.ebi.ac.uk/unichem/rest/src_compound_id/CHEMBL12/1")
+    res = @obj.src_compound_id("CHEMBL12", "1") 
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
   end
 
   def test_src_compound_id_3
-    assert_equal(
-      @obj.src_compound_id("CHEMBL12", "1", "2"), 
-      "http://www.ebi.ac.uk/unichem/rest/src_compound_id/CHEMBL12/1/2")
+    res = @obj.src_compound_id("CHEMBL12", "1", "2") 
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["src_compound_id"], "DB00829")
   end
 
   def test_src_compound_id_all_2
-    assert_equal(
-      @obj.src_compound_id_all("CHEMBL12", "1"),
-      "http://www.ebi.ac.uk/unichem/rest/src_compound_id_all/CHEMBL12/1")
+    res = @obj.src_compound_id_all("CHEMBL12", "1")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["assignment"], "1")
+    assert_equal(res.first["src_id"], "1")
+    assert_equal(res.first["src_compound_id"], "CHEMBL12")
   end
 
   def test_src_compound_id_all_3
-    assert_equal(
-      @obj.src_compound_id_all("CHEMBL12", "1", "2"), 
-      "http://www.ebi.ac.uk/unichem/rest/src_compound_id_all/CHEMBL12/1/2")
+    res = @obj.src_compound_id_all("CHEMBL12", "1", "2")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["assignment"], "1")
+    assert_equal(res.first["src_compound_id"], "DB00829")
   end
 
   def test_mapping
-    assert_equal(
-      @obj.mapping("4", "1"), 
-      "http://www.ebi.ac.uk/unichem/rest/mapping/4/1")
+    res = @obj.mapping("4", "1")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["1"], "CHEMBL247132")
+    assert_equal(res.first["4"], "1592")
   end
   
   def test_inchikey
-    assert_equal(
-      @obj.inchikey("AAOVKJBEBIDNHE-UHFFFAOYSA-N"),
-      "http://www.ebi.ac.uk/unichem/rest/inchikey/AAOVKJBEBIDNHE-UHFFFAOYSA-N")
+    res = @obj.inchikey("AAOVKJBEBIDNHE-UHFFFAOYSA-N")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["src_id"], "1")
+    assert_equal(res.first["src_compound_id"], "CHEMBL12")
   end
   
   def test_inchikey_all
-    assert_equal(
-      @obj.inchikey_all("AAOVKJBEBIDNHE-UHFFFAOYSA-N"),
-      "http://www.ebi.ac.uk/unichem/rest/inchikey_all/AAOVKJBEBIDNHE-UHFFFAOYSA-N")
+    res = @obj.inchikey_all("AAOVKJBEBIDNHE-UHFFFAOYSA-N")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["assignment"], "1")
+    assert_equal(res.first["src_id"], "1")
+    assert_equal(res.first["src_compound_id"], "CHEMBL12")
   end
   
   def test_src_ids
-    assert_equal(
-      @obj.src_ids,
-      "http://www.ebi.ac.uk/unichem/rest/src_ids/")      
+    res = @obj.src_ids
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["src_id"], "1")
   end
   
   def test_sources
-    assert_equal(
-      @obj.sources("1"),
-      "http://www.ebi.ac.uk/unichem/rest/sources/1")      
+    res = @obj.sources("1")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["src_id"], "1")
   end
   
   def test_structure
-    assert_equal(
-      @obj.structure("CHEMBL12", "1"),
-      "http://www.ebi.ac.uk/unichem/rest/structure/CHEMBL12/1")    
+    res = @obj.structure("CHEMBL12", "1")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["standardinchikey"], "AAOVKJBEBIDNHE-UHFFFAOYSA-N")
+    assert_equal(res.first["standardinchi"], 
+      "InChI=1S/C16H13ClN2O/c1-19-14-8-7-12(17)9-13(14)16(18-10-15(19)20)11-5-3-2-4-6-11/h2-9H,10H2,1H3")
   end
   
   def test_structure_all
-    assert_equal(
-      @obj.structure_all("CHEMBL12", "1"),
-      "http://www.ebi.ac.uk/unichem/rest/structure_all/CHEMBL12/1")      
+    res = @obj.structure_all("CHEMBL12", "1")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["assignment"], "1")
+    assert_equal(res.first["standardinchikey"], "AAOVKJBEBIDNHE-UHFFFAOYSA-N")
+    assert_equal(res.first["standardinchi"], 
+      "InChI=1S/C16H13ClN2O/c1-19-14-8-7-12(17)9-13(14)16(18-10-15(19)20)11-5-3-2-4-6-11/h2-9H,10H2,1H3")
   end
   
   def test_src_compound_id_url
-    assert_equal(
-      @obj.src_compound_id_url("CHEMBL12", "1", "2"),
-      "http://www.ebi.ac.uk/unichem/rest/src_compound_id_url/CHEMBL12/1/2")      
+    res = @obj.src_compound_id_url("CHEMBL12", "1", "2")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["url"], "http://www.drugbank.ca/drugs/DB00829")
   end
   
   def test_src_compound_id_all_obsolete_2
-    assert_equal(
-      @obj.src_compound_id_all_obsolete("DB07699", "2"),
-      "http://www.ebi.ac.uk/unichem/rest/src_compound_id_all_obsolete/DB07699/2")
+    res = @obj.src_compound_id_all_obsolete("DB07699", "2")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["assignment"], "1")
+    assert_equal(res.first["src_id"], "1")
+    assert_equal(res.first["UCI"], "304698")
+    assert_equal(res.first["src_compound_id"], "CHEMBL12")
   end
   
   def test_src_compound_id_all_obsolete_3
-    assert_equal(
-      @obj.src_compound_id_all_obsolete("DB07699", "2", "1"),
-      "http://www.ebi.ac.uk/unichem/rest/src_compound_id_all_obsolete/DB07699/2/1")      
+    res = @obj.src_compound_id_all_obsolete("DB07699", "2", "1")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["assignment"], "1")
+    assert_equal(res.first["src_id"], "1")
+    assert_equal(res.first["UCI"], "304698")
+    assert_equal(res.first["src_compound_id"], "CHEMBL12")
   end
   
   def test_verbose_inchikey
-    assert_equal(
-      @obj.verbose_inchikey("HAUGRYOERYOXHX-UHFFFAOYSA-N"),
-      "http://www.ebi.ac.uk/unichem/rest/verbose_inchikey/HAUGRYOERYOXHX-UHFFFAOYSA-N")      
+    res = @obj.verbose_inchikey("HAUGRYOERYOXHX-UHFFFAOYSA-N")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["name"], "chembl")
+    assert_equal(res.first["description"], "A database of bioactive drug-like small molecules and associated bioactivities abstracted from the scientific literature")
+    assert_equal(res.first["name_long"], "ChEMBL")
+    assert_equal(res.first["src_compound_id"], ["CHEMBL68500"])
+    assert_equal(res.first["base_id_url"], "https://www.ebi.ac.uk/chembldb/compound/inspect/")
+    assert_equal(res.first["src_id"], "1")
+    assert_equal(res.first["base_id_url_available"], "1")
+    assert_equal(res.first["src_url"], "https://www.ebi.ac.uk/chembl/")
   end
   
 end

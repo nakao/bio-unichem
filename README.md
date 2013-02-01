@@ -4,6 +4,40 @@
 
 BioRuby plugin for [UniChem REST Webservice](https://www.ebi.ac.uk/unichem/info/webservices).
 
+REST API address
+```ruby
+   BioUniChem::REST::UniChem_URI.src_compound_id("CHEMBL12", "1", "2")
+   #=> "http://www.ebi.ac.uk/unichem/rest/src_compound_id/CHEMBL12/1/2"
+   
+   BioUniChem::REST::UniChem_URI.mapping("4", "1")
+   #=> "http://www.ebi.ac.uk/unichem/rest/mapping/4/1"
+```
+
+Get Data 
+```ruby
+   client = BioUniChem::REST.new
+   result = client.src_compound_id("CHEMBL12", "1", "2")
+   p result 
+   #=> [{"src_compound_id"=>"DB00829"}]
+```
+
+The Ruby script bellow utilizes the Bio UniChem module
+```ruby
+   require 'bio-unichem'
+
+   ## --------------------------
+   ## create client ...
+   client = BioUniChem::REST.new
+
+   ## --------------------------
+   ## get the data ...
+   result = client.src_compound_id("CHEMBL12", "1")
+   
+   ## --------------------------
+   ## print ...
+   p result   
+``` 
+
 Note: this software is under active development!
 
 ## Installation

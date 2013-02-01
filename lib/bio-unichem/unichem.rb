@@ -1,3 +1,7 @@
+require 'bio'
+require 'open-uri'
+require 'json'
+
 module BioUniChem
 
   # UniChem REST Web service API Client.
@@ -90,7 +94,6 @@ module BioUniChem
     
     # BioUniChem::REST.new
     def initialize
-      uri = URI.parse(uri) unless uri.kind_of?(URI)
       @header = {
         'User-Agent' => "BioUniChem, BioRuby/#{Bio::BIORUBY_VERSION_ID}"
       }
@@ -129,6 +132,10 @@ module BioUniChem
 
     def src_ids
       get(BioUniChem::REST::UniChem_URI.src_ids)
+    end
+
+    def sources(src_id)
+      get(BioUniChem::REST::UniChem_URI.sources(src_id))
     end
 
     def structure(src_compound_id, src_id)
