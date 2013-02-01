@@ -17,7 +17,7 @@ Jeweler::Tasks.new do |gem|
   gem.name = "bio-unichem"
   gem.homepage = "http://github.com/nakao/bioruby-unichem"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
+  gem.summary = %Q{BioRuby plugin for UniChem REST Web service}
   gem.description = %Q{TODO: longer description of your gem}
   gem.email = "mitsuteru.nakao@gmail.com"
   gem.authors = ["Mitsuteru Nakao"]
