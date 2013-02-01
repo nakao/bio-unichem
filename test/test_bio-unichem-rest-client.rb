@@ -12,8 +12,21 @@ class TestBioUniChemRESTClient < Test::Unit::TestCase
     assert_equal(res.first.class, Hash)
   end
 
+  def test_src_compound_id_2_src_id
+    res = @obj.src_compound_id("CHEMBL12", BioUniChem.src_id(:chembl)) 
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+  end
+
   def test_src_compound_id_3
     res = @obj.src_compound_id("CHEMBL12", "1", "2") 
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["src_compound_id"], "DB00829")
+  end
+
+  def test_src_compound_id_3_src_id
+    res = @obj.src_compound_id("CHEMBL12", BioUniChem.src_id(:chembl), BioUniChem.src_id(:drugbank)) 
     assert_equal(res.class, Array)
     assert_equal(res.first.class, Hash)
     assert_equal(res.first["src_compound_id"], "DB00829")
@@ -38,6 +51,14 @@ class TestBioUniChemRESTClient < Test::Unit::TestCase
 
   def test_mapping
     res = @obj.mapping("4", "1")
+    assert_equal(res.class, Array)
+    assert_equal(res.first.class, Hash)
+    assert_equal(res.first["1"], "CHEMBL247132")
+    assert_equal(res.first["4"], "1592")
+  end
+
+  def test_mapping_src_id
+    res = @obj.mapping(BioUniChem.src_id(:iuphar), BioUniChem.src_id(:chembl))
     assert_equal(res.class, Array)
     assert_equal(res.first.class, Hash)
     assert_equal(res.first["1"], "CHEMBL247132")

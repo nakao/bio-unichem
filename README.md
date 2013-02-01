@@ -21,6 +21,14 @@ Get Data
    #=> [{"src_compound_id"=>"DB00829"}]
 ```
 
+Get Data by src_id Short name
+```ruby
+   client = BioUniChem::REST.new
+   result = client.src_compound_id("CHEMBL12", BioUniChem.src_id(:chembl), BioUniChem.src_id(:drugbank))
+   p result 
+   #=> [{"src_compound_id"=>"DB00829"}]
+```
+
 The Ruby script bellow utilizes the Bio UniChem module
 ```ruby
    require 'bio-unichem'
@@ -37,6 +45,8 @@ The Ruby script bellow utilizes the Bio UniChem module
    ## print ...
    p result   
 ``` 
+
+
 
 Note: this software is under active development!
 

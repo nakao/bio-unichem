@@ -4,6 +4,40 @@ require 'json'
 
 module BioUniChem
 
+  # src_id
+  def self.src_id(short_name)
+    case short_name
+    when :chembl
+      "1"
+    when :drugbank
+      "2"
+    when :pdb
+      "3"
+    when :iuphar
+      "4"
+    when :pubchem_dotf
+      "5"
+    when :kegg_ligand
+      "6"
+    when :chebi
+      "7"
+    when :nih_ncc
+      "8"
+    when :zinc
+      "9"
+    when :emolecules
+      "10"
+    when :ibm
+      "11"
+    when :atlas
+      "12"
+    when :patens
+      "13"
+    else
+      raise ArgumentError
+    end
+  end
+
   # UniChem REST Web service API Client.
   #
   #  # URI
@@ -89,9 +123,9 @@ module BioUniChem
         address("verbose_inchikey/#{inchikey}")
       end
 
-      
     end
     
+
     # BioUniChem::REST.new
     def initialize
       @header = {
@@ -157,7 +191,7 @@ module BioUniChem
     def verbose_inchikey(inchikey)
       get(BioUniChem::REST::UniChem_URI.verbose_inchikey(inchikey))
     end
-
     
   end
+
 end
