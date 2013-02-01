@@ -9,8 +9,9 @@ module BioUniChem
 
     HOST_NAME = "www.ebi.ac.uk"
     API_ROOT = "unichem/rest"
-    BASE_URL = "http://" + HOST_NAME + "/" + API_ROOT
+    BASE_URL = "https://" + HOST_NAME + "/" + API_ROOT
 
+    # Generate URIs for UniChem REST Web service
     # BioUniChem::REST::UniChem_URI
     module UniChem_URI
 
@@ -86,5 +87,70 @@ module BioUniChem
 
       
     end
+    
+    # BioUniChem::REST.new
+    def initialize
+      uri = URI.parse(uri) unless uri.kind_of?(URI)
+      @header = {
+        'User-Agent' => "BioUniChem, BioRuby/#{Bio::BIORUBY_VERSION_ID}"
+      }
+      @debug = false
+      @status = ""
+    end
+    
+    #
+    def get(uri)
+      res = open(uri, @header)
+      @status = res.status
+      return JSON(res.read)
+    end
+    private :get
+    
+    #
+    def src_compound_id(src_compound_id, src_id, to_src_id = nil)
+      get(BioUniChem::REST::UniChem_URI.src_compound_id(src_compound_id, src_id, to_src_id))
+    end
+    
+    def src_compound_id_all(src_compound_id, src_id, to_src_id = nil)
+      get(BioUniChem::REST::UniChem_URI.src_compound_id_all(src_compound_id, src_id, to_src_id))
+    end
+    
+    def mapping(src_id, to_src_id)
+      get(BioUniChem::REST::UniChem_URI.mapping(src_id, to_src_id))
+    end
+
+    def inchikey(inchikey)
+      get(BioUniChem::REST::UniChem_URI.inchikey(inchikey))
+    end
+
+    def inchikey_all(inchikey)
+      get(BioUniChem::REST::UniChem_URI. inchikey_all(inchikey))
+    end
+
+    def src_ids
+      get(BioUniChem::REST::UniChem_URI.src_ids)
+    end
+
+    def structure(src_compound_id, src_id)
+      get(BioUniChem::REST::UniChem_URI.structure(src_compound_id, src_id))
+    end
+
+    def structure_all(src_compound_id, src_id)
+      get(BioUniChem::REST::UniChem_URI.structure_all(src_compound_id, src_id))
+    end
+
+    def src_compound_id_url(src_compound_id, src_id, to_src_id)
+      get(BioUniChem::REST::UniChem_URI.src_compound_id_url(src_compound_id, src_id, to_src_id))
+    end
+
+    def src_compound_id_all_obsolete(src_compound_id, src_id, to_src_id = nil)
+      get(BioUniChem::REST::UniChem_URI.src_compound_id_all_obsolete(src_compound_id, src_id, to_src_id = nil))
+    end
+
+    def verbose_inchikey(inchikey)
+      get(BioUniChem::REST::UniChem_URI.verbose_inchikey(inchikey))
+    end
+
+    
   end
 end
