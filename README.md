@@ -21,7 +21,7 @@ Get Data
    #=> [{"src_compound_id"=>"DB00829"}]
 ```
 
-Get Data by src_id Short name
+Get Data using [Source ID by Short name](https://www.ebi.ac.uk/unichem/ucquery/listSources)
 ```ruby
    client = BioUniChem::REST.new
    result = client.src_compound_id("CHEMBL12", BioUniChem.src_id(:chembl), BioUniChem.src_id(:drugbank))
