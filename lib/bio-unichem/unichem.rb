@@ -37,6 +37,8 @@ module BioUniChem
       raise ArgumentError
     end
   end
+  
+  
 
   # UniChem REST Web service API Client.
   #

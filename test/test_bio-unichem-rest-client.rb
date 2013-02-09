@@ -34,52 +34,58 @@ class TestBioUniChemRESTClient < Test::Unit::TestCase
 
   def test_src_compound_id_all_2
     res = @obj.src_compound_id_all("CHEMBL12", "1")
+    t = res.find {|x| x['src_id'] == "1" }
     assert_equal(res.class, Array)
-    assert_equal(res.first.class, Hash)
-    assert_equal(res.first["assignment"], "1")
-    assert_equal(res.first["src_id"], "1")
-    assert_equal(res.first["src_compound_id"], "CHEMBL12")
+    assert_equal(t.class, Hash)
+    assert_equal(t["assignment"], "1")
+    assert_equal(t["src_id"], "1")
+    assert_equal(t["src_compound_id"], "CHEMBL12")
   end
 
   def test_src_compound_id_all_3
     res = @obj.src_compound_id_all("CHEMBL12", "1", "2")
+    t = res.find {|x| x['src_compound_id'] == "DB00829" }    
     assert_equal(res.class, Array)
-    assert_equal(res.first.class, Hash)
-    assert_equal(res.first["assignment"], "1")
-    assert_equal(res.first["src_compound_id"], "DB00829")
+    assert_equal(t.class, Hash)
+    assert_equal(t["assignment"], "1")
+    assert_equal(t["src_compound_id"], "DB00829")
   end
 
   def test_mapping
     res = @obj.mapping("4", "1")
+    t = res.find {|x| x['1'] == "CHEMBL247132" }
     assert_equal(res.class, Array)
-    assert_equal(res.first.class, Hash)
-    assert_equal(res.first["1"], "CHEMBL247132")
-    assert_equal(res.first["4"], "1592")
+    assert_equal(t.class, Hash)
+    assert_equal(t["1"], "CHEMBL247132")
+    assert_equal(t["4"], "1592")
   end
 
   def test_mapping_src_id
     res = @obj.mapping(BioUniChem.src_id(:iuphar), BioUniChem.src_id(:chembl))
+    t = res.find {|x| x['1'] == "CHEMBL247132" }
     assert_equal(res.class, Array)
-    assert_equal(res.first.class, Hash)
-    assert_equal(res.first["1"], "CHEMBL247132")
-    assert_equal(res.first["4"], "1592")
+    assert_equal(t.class, Hash)
+    assert_equal(t["1"], "CHEMBL247132")
+    assert_equal(t["4"], "1592")
   end
   
   def test_inchikey
     res = @obj.inchikey("AAOVKJBEBIDNHE-UHFFFAOYSA-N")
+    t = res.find {|x| x['src_id'] == "1" }
     assert_equal(res.class, Array)
-    assert_equal(res.first.class, Hash)
-    assert_equal(res.first["src_id"], "1")
-    assert_equal(res.first["src_compound_id"], "CHEMBL12")
+    assert_equal(t.class, Hash)
+    assert_equal(t["src_id"], "1")
+    assert_equal(t["src_compound_id"], "CHEMBL12")
   end
   
   def test_inchikey_all
     res = @obj.inchikey_all("AAOVKJBEBIDNHE-UHFFFAOYSA-N")
+    t = res.find {|x| x['src_id'] == "1" }
     assert_equal(res.class, Array)
-    assert_equal(res.first.class, Hash)
-    assert_equal(res.first["assignment"], "1")
-    assert_equal(res.first["src_id"], "1")
-    assert_equal(res.first["src_compound_id"], "CHEMBL12")
+    assert_equal(t.class, Hash)
+    assert_equal(t["assignment"], "1")
+    assert_equal(t["src_id"], "1")
+    assert_equal(t["src_compound_id"], "CHEMBL12")
   end
   
   def test_src_ids
@@ -98,10 +104,11 @@ class TestBioUniChemRESTClient < Test::Unit::TestCase
   
   def test_structure
     res = @obj.structure("CHEMBL12", "1")
+    t = res.find {|x| x['standardinchikey'] == "AAOVKJBEBIDNHE-UHFFFAOYSA-N" }
     assert_equal(res.class, Array)
-    assert_equal(res.first.class, Hash)
-    assert_equal(res.first["standardinchikey"], "AAOVKJBEBIDNHE-UHFFFAOYSA-N")
-    assert_equal(res.first["standardinchi"], 
+    assert_equal(t.class, Hash)
+    assert_equal(t["standardinchikey"], "AAOVKJBEBIDNHE-UHFFFAOYSA-N")
+    assert_equal(t["standardinchi"], 
       "InChI=1S/C16H13ClN2O/c1-19-14-8-7-12(17)9-13(14)16(18-10-15(19)20)11-5-3-2-4-6-11/h2-9H,10H2,1H3")
   end
   
@@ -124,26 +131,29 @@ class TestBioUniChemRESTClient < Test::Unit::TestCase
   
   def test_src_compound_id_all_obsolete_2
     res = @obj.src_compound_id_all_obsolete("DB07699", "2")
+    t = res.find {|x| x['src_id'] == "1" }
     assert_equal(res.class, Array)
-    assert_equal(res.first.class, Hash)
-    assert_equal(res.first["assignment"], "1")
-    assert_equal(res.first["src_id"], "1")
-    assert_equal(res.first["UCI"], "304698")
-    assert_equal(res.first["src_compound_id"], "CHEMBL12")
+    assert_equal(t.class, Hash)
+    assert_equal(t["assignment"], "1")
+    assert_equal(t["src_id"], "1")
+    assert_equal(t["UCI"], "304698")
+    assert_equal(t["src_compound_id"], "CHEMBL12")
   end
   
   def test_src_compound_id_all_obsolete_3
     res = @obj.src_compound_id_all_obsolete("DB07699", "2", "1")
+    t = res.find {|x| x['src_id'] == "1" }
     assert_equal(res.class, Array)
-    assert_equal(res.first.class, Hash)
-    assert_equal(res.first["assignment"], "1")
-    assert_equal(res.first["src_id"], "1")
-    assert_equal(res.first["UCI"], "304698")
-    assert_equal(res.first["src_compound_id"], "CHEMBL12")
+    assert_equal(t.class, Hash)
+    assert_equal(t["assignment"], "1")
+    assert_equal(t["src_id"], "1")
+    assert_equal(t["UCI"], "304698")
+    assert_equal(t["src_compound_id"], "CHEMBL12")
   end
   
   def test_verbose_inchikey
     res = @obj.verbose_inchikey("HAUGRYOERYOXHX-UHFFFAOYSA-N")
+    t = res.find {|x| x['name'] == "chembl" }
     assert_equal(res.class, Array)
     assert_equal(res.first.class, Hash)
     assert_equal(res.first["name"], "chembl")
