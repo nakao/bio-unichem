@@ -67,9 +67,14 @@ class TestBioUniChemModelSources < Test::Unit::TestCase
     assert_equal(Bio::UniChem::Sources["chembl"].src_id, "1") 
   end
 
-  def test_a_src_id
+  def test_a_src_id_1
     assert_equal(Bio::UniChem::Sources["1"].class, Bio::UniChem::Source) 
     assert_equal(Bio::UniChem::Sources["1"].short_name, "chembl") 
+  end
+
+  def test_a_src_id_2
+    assert_equal(Bio::UniChem::Sources["2"].class, Bio::UniChem::Source) 
+    assert_equal(Bio::UniChem::Sources["2"].short_name, "drugbank") 
   end
   
 end

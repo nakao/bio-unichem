@@ -128,8 +128,7 @@ module Bio
         Data, provided by IBM-NIH, was originally extracted from patents from three publishing bodies (US, EPO and WIPO) with publication dates through (including) 2000-12-31. For UniChem, these data were parsed to include only whole molecules present in either the title or claims fields. Further filters included removal of: 1. All molecules mapping to > 10,000 patents, 2. Non-organic molecules, 3. Small molecules (mw <90, number of atoms < 7). In addition, for structures mapping to >100 patents, only 100 randomly selected patents were selected. Identifiers in UniChem are patent number identifiers
         SMILES download available. Converted to InChi in house. Patent Ids used for Ids instead of cpd_ids. Data set filtered to remove compounds not appearing in the title or claims sections of the patent, and to remove very frequently occurring compounds
     |
-      delimiter = "/\/\//"
-      Data = data.strip.split(delimiter).map do |record|
+      Data = data.strip.split("\/\/").map do |record|
         t = record.strip.split("\n").map {|line| line.strip }
         Bio::UniChem::Source.new({"src_id" => t[0],  
                               "short_name" => t[1],  
