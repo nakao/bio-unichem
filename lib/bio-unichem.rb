@@ -9,4 +9,4 @@
 # In this file only require other files. Avoid other source code.
 
 require 'bio-unichem/unichem.rb'
-
+require 'bio-unichem/model.rb'
