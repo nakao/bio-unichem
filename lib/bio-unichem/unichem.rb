@@ -2,48 +2,15 @@ require 'bio'
 require 'open-uri'
 require 'json'
 
-module BioUniChem
-
-  # src_id
-  def self.src_id(short_name)
-    case short_name
-    when :chembl
-      "1"
-    when :drugbank
-      "2"
-    when :pdb
-      "3"
-    when :iuphar
-      "4"
-    when :pubchem_dotf
-      "5"
-    when :kegg_ligand
-      "6"
-    when :chebi
-      "7"
-    when :nih_ncc
-      "8"
-    when :zinc
-      "9"
-    when :emolecules
-      "10"
-    when :ibm
-      "11"
-    when :atlas
-      "12"
-    when :patens
-      "13"
-    else
-      raise ArgumentError
-    end
-  end
+module Bio
   
+class UniChem
   
 
   # UniChem REST Web service API Client.
   #
   #  # URI
-  #  BioUniChem::REST::UniChem_URI
+  #  Bio::UniChem::REST::UniChem_URI
   #
   class REST
 
@@ -52,7 +19,7 @@ module BioUniChem
     BASE_URL = "https://" + HOST_NAME + "/" + API_ROOT
 
     # Generate URIs for UniChem REST Web service
-    # BioUniChem::REST::UniChem_URI
+    # Bio::UniChem::REST::UniChem_URI
     module UniChem_URI
 
       def self.address(path)
@@ -128,10 +95,10 @@ module BioUniChem
     end
     
 
-    # BioUniChem::REST.new
+    # Bio::UniChem::REST.new 
     def initialize
       @header = {
-        'User-Agent' => "BioUniChem, BioRuby/#{Bio::BIORUBY_VERSION_ID}"
+        'User-Agent' => "Bio::UniChem, BioRuby/#{Bio::BIORUBY_VERSION_ID}"
       }
       @debug = false
       @status = ""
@@ -147,53 +114,55 @@ module BioUniChem
     
     #
     def src_compound_id(src_compound_id, src_id, to_src_id = nil)
-      get(BioUniChem::REST::UniChem_URI.src_compound_id(src_compound_id, src_id, to_src_id))
+      get(Bio::UniChem::REST::UniChem_URI.src_compound_id(src_compound_id, src_id, to_src_id))
     end
     
     def src_compound_id_all(src_compound_id, src_id, to_src_id = nil)
-      get(BioUniChem::REST::UniChem_URI.src_compound_id_all(src_compound_id, src_id, to_src_id))
+      get(Bio::UniChem::REST::UniChem_URI.src_compound_id_all(src_compound_id, src_id, to_src_id))
     end
     
     def mapping(src_id, to_src_id)
-      get(BioUniChem::REST::UniChem_URI.mapping(src_id, to_src_id))
+      get(Bio::UniChem::REST::UniChem_URI.mapping(src_id, to_src_id))
     end
 
     def inchikey(inchikey)
-      get(BioUniChem::REST::UniChem_URI.inchikey(inchikey))
+      get(Bio::UniChem::REST::UniChem_URI.inchikey(inchikey))
     end
 
     def inchikey_all(inchikey)
-      get(BioUniChem::REST::UniChem_URI. inchikey_all(inchikey))
+      get(Bio::UniChem::REST::UniChem_URI. inchikey_all(inchikey))
     end
 
     def src_ids
-      get(BioUniChem::REST::UniChem_URI.src_ids)
+      get(Bio::UniChem::REST::UniChem_URI.src_ids)
     end
 
     def sources(src_id)
-      get(BioUniChem::REST::UniChem_URI.sources(src_id))
+      get(Bio::UniChem::REST::UniChem_URI.sources(src_id))
     end
 
     def structure(src_compound_id, src_id)
-      get(BioUniChem::REST::UniChem_URI.structure(src_compound_id, src_id))
+      get(Bio::UniChem::REST::UniChem_URI.structure(src_compound_id, src_id))
     end
 
     def structure_all(src_compound_id, src_id)
-      get(BioUniChem::REST::UniChem_URI.structure_all(src_compound_id, src_id))
+      get(Bio::UniChem::REST::UniChem_URI.structure_all(src_compound_id, src_id))
     end
 
     def src_compound_id_url(src_compound_id, src_id, to_src_id)
-      get(BioUniChem::REST::UniChem_URI.src_compound_id_url(src_compound_id, src_id, to_src_id))
+      get(Bio::UniChem::REST::UniChem_URI.src_compound_id_url(src_compound_id, src_id, to_src_id))
     end
 
     def src_compound_id_all_obsolete(src_compound_id, src_id, to_src_id = nil)
-      get(BioUniChem::REST::UniChem_URI.src_compound_id_all_obsolete(src_compound_id, src_id, to_src_id = nil))
+      get(Bio::UniChem::REST::UniChem_URI.src_compound_id_all_obsolete(src_compound_id, src_id, to_src_id = nil))
     end
 
     def verbose_inchikey(inchikey)
-      get(BioUniChem::REST::UniChem_URI.verbose_inchikey(inchikey))
+      get(Bio::UniChem::REST::UniChem_URI.verbose_inchikey(inchikey))
     end
     
   end
+  
+end
 
 end

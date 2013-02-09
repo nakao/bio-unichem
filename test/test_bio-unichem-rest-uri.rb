@@ -3,7 +3,7 @@ require 'bio-unichem/unichem.rb'
 
 class TestBioUniChemURI < Test::Unit::TestCase
   def setup
-    @obj = BioUniChem::REST::UniChem_URI
+    @obj = Bio::UniChem::REST::UniChem_URI
   end
   
   def test_src_compound_id_2

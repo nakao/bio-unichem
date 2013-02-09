@@ -45,7 +45,7 @@ module Bio
     #        
     class Sources
       
-      # 2013-02-09
+      # 2013-02-09 at https://www.ebi.ac.uk/unichem/ucquery/listSources
       # src_id  
       # Short name  
       # Full name 

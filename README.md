@@ -2,20 +2,20 @@
 
 [![Build Status](https://secure.travis-ci.org/nakao/bio-unichem.png)](http://travis-ci.org/nakao/bio-unichem)
 
-BioRuby plugin for [UniChem REST Webservice](https://www.ebi.ac.uk/unichem/info/webservices).
+BioRuby plugin for [UniChem REST Web service](https://www.ebi.ac.uk/unichem/info/webservices).
 
 REST API address
 ```ruby
-   BioUniChem::REST::UniChem_URI.src_compound_id("CHEMBL12", "1", "2")
+   Bio::UniChem::REST::UniChem_URI.src_compound_id("CHEMBL12", "1", "2")
    #=> "http://www.ebi.ac.uk/unichem/rest/src_compound_id/CHEMBL12/1/2"
    
-   BioUniChem::REST::UniChem_URI.mapping("4", "1")
+   Bio::UniChem::REST::UniChem_URI.mapping("4", "1")
    #=> "http://www.ebi.ac.uk/unichem/rest/mapping/4/1"
 ```
 
 Get Data 
 ```ruby
-   client = BioUniChem::REST.new
+   client = Bio::UniChem::REST.new
    result = client.src_compound_id("CHEMBL12", "1", "2")
    p result 
    #=> [{"src_compound_id"=>"DB00829"}]
@@ -23,10 +23,23 @@ Get Data
 
 Get Data using [Source ID by Short name](https://www.ebi.ac.uk/unichem/ucquery/listSources)
 ```ruby
-   client = BioUniChem::REST.new
-   result = client.src_compound_id("CHEMBL12", BioUniChem.src_id(:chembl), BioUniChem.src_id(:drugbank))
-   p result 
+   client = Bio::UniChem::REST.new
+   result = client.src_compound_id("CHEMBL12", 
+                                   Bio::UniChem::Sources['chembl'].src_id, 
+                                   Bio::UniChem::Sources['drugbank'].src_id)
+   p eresult 
    #=> [{"src_compound_id"=>"DB00829"}]
+```
+
+Sources and Souece models [list of sources](https://www.ebi.ac.uk/unichem/ucquery/listSources)
+```ruby
+   chembl = Bio::UniChem::Sources['chembl']
+   chembl.src_id
+   #=> "1"
+   chembl.short_name
+   #=> "chembl"
+   chembl.full_name
+   #=> "ChEMBL"
 ```
 
 The Ruby script bellow utilizes the Bio UniChem module
@@ -35,11 +48,11 @@ The Ruby script bellow utilizes the Bio UniChem module
 
    ## --------------------------
    ## create client ...
-   client = BioUniChem::REST.new
+   client = Bio::UniChem::REST.new
 
    ## --------------------------
    ## get the data ...
-   result = client.src_compound_id("CHEMBL12", "1")
+   result = client.src_compound_id("CHEMBL12", Bio::UniChem::Sources["chembl"].src_id)
    
    ## --------------------------
    ## print ...
